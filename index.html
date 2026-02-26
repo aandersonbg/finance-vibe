@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meu Financeiro — Vibe Coding</title>
+  <meta name="description" content="App web de organização de finanças pessoais (Vibe Coding) com Glassmorphism + Neon, Chart.js e layout responsivo." />
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <h1><span class="logo">Vibe</span> Finance</h1>
+      <nav class="actions">
+        <button id="btn-export" class="btn ghost" title="Exportar dados em JSON">Exportar</button>
+        <button id="btn-clear" class="btn danger" title="Limpar todas as transações">Limpar</button>
+      </nav>
+    </header>
+
+    <main class="content">
+      <section class="summary glass">
+        <div class="card entrada">
+          <h3>Entradas</h3>
+          <p id="entradas">R$ 0,00</p>
+        </div>
+        <div class="card saida">
+          <h3>Saídas</h3>
+          <p id="saidas">R$ 0,00</p>
+        </div>
+        <div class="card total">
+          <h3>Total</h3>
+          <p id="total">R$ 0,00</p>
+        </div>
+      </section>
+
+      <section class="form glass">
+        <h2>Adicionar Transação</h2>
+        <form id="form-transacao">
+          <div class="grid">
+            <label>
+              <span>Descrição</span>
+              <input type="text" id="descricao" placeholder="Ex.: Salário, Mercado, Uber" required />
+            </label>
+            <label>
+              <span>Valor (R$)</span>
+              <input type="number" id="valor" step="0.01" min="0" placeholder="0,00" required />
+            </label>
+            <label>
+              <span>Tipo</span>
+              <select id="tipo">
+                <option value="entrada">Entrada</option>
+                <option value="saida">Saída</option>
+              </select>
+            </label>
+            <label>
+              <span>Categoria</span>
+              <input type="text" id="categoria" placeholder="Ex.: Salário, Alimentação, Transporte" />
+            </label>
+            <label>
+              <span>Data</span>
+              <input type="date" id="data" />
+            </label>
+          </div>
+          <div class="actions-row">
+            <button class="btn primary" type="submit">Adicionar</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="chart glass">
+        <div class="chart-header">
+          <h2>Entradas x Saídas (últimos meses)</h2>
+          <select id="range-meses" class="select-inline" title="Quantidade de meses no gráfico">
+            <option value="3">3 meses</option>
+            <option value="6" selected>6 meses</option>
+            <option value="12">12 meses</option>
+          </select>
+        </div>
+        <canvas id="grafico" height="120"></canvas>
+      </section>
+
+      <section class="list glass">
+        <div class="list-header">
+          <h2>Transações</h2>
+          <div class="filters">
+            <select id="filtro-tipo" class="select-inline">
+              <option value="todas" selected>Todas</option>
+              <option value="entrada">Entradas</option>
+              <option value="saida">Saídas</option>
+            </select>
+            <input type="text" id="filtro-texto" class="input-inline" placeholder="Filtrar por descrição/categoria" />
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Descrição</th>
+              <th>Categoria</th>
+              <th class="right">Valor</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Feito com ❤ no modo <strong>Vibe Coding</strong>. Dados salvos no seu navegador (localStorage).</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
